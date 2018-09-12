@@ -1,0 +1,11 @@
+server:
+  port: 9998
+spring:
+  application:
+    name: leishi-kernel-client
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9999/eureka/
