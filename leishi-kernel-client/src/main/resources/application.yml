@@ -10,11 +10,12 @@ spring:
   application:
     name: leishi-kernel-client
   datasource:
-    url: jdbc:mysql://localhost:3306/progt
+    url: jdbc:mysql://localhost:3306/leishi
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
 mybatis:
   typeAliasesPackage: com.wxj.entity
   mapperLocations: classpath:mapper/*.xml
-    
+logging:
+  level: com.wxj.dao: debug
