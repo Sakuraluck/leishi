@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 
 /**  
 * @ClassName: KernelApplication  
@@ -18,6 +19,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableDiscoveryClient
 @EnableEurekaClient
 @SpringBootConfiguration
+@ComponentScan(basePackages = {"com.wxj.controller","com.wxj.servie","com.wxj.dao"})
 public class KernelApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(KernelApplication.class).run(args);
