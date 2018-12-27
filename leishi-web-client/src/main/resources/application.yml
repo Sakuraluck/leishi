@@ -23,5 +23,5 @@ zuul:
   routes:
     producer:
       path: /kernel/**
-      serviceId: leishi-kernel-client
+      serviceId: LEISHI-KERNEL-CLIENT
       retryable: true
