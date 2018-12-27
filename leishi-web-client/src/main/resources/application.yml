@@ -5,7 +5,7 @@ spring:
     name: leishi-web-client
   thymeleaf:
     suffix: .html
-    prefix: classpath:/templates/
+    prefix: classpath:/templates
     content-type: text/html 
     cache: false
     mode: LEGACYHTML5

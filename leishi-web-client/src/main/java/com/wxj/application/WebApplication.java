@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.ComponentScan;
 
 /**  
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
+@EnableZuulProxy
 @ComponentScan({"com.wxj.controller"})
 public class WebApplication {
 	public static void main(String[] args) {
