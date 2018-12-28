@@ -1,6 +1,8 @@
 package com.wxj.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.wxj.domain.entity.Employee;
 /**
 * @ClassName:  EmployeeMapper
@@ -29,4 +31,20 @@ public interface EmployeeMapper{
 	 *@return
 	 */
 	public void deleteEmployee(Employee Employee);
+	/**  
+	* @Title: selectEmployeeCount  
+	* @Description: TODO 条件查询总条数
+	* @param parmMap
+	* @return   
+	* @date:2018-12-28 15:55
+	*/
+	public int selectEmployeeCount(Map<String, Object> parmMap);
+	/**  
+	* @Title: selectEmployeeByPage  
+	* @Description: TODO
+	* @param parmMap
+	* @return   
+	* @date:2018-12-28 16:00
+	*/
+	public List<Employee> selectEmployeeByPage(Map<String, Object> parmMap);
 }

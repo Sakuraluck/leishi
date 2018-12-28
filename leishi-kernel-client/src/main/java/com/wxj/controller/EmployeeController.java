@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wxj.domain.entity.Employee;
 import com.wxj.service.EmployeeService;
+import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
 /**
  * @ClassName: EmployeeController
@@ -26,8 +27,9 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	@RequestMapping(value = "/query", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResultObject query(Employee emp) {
-		ResultObject result = employeeService.query(emp);
+	public ResultObject query(PageUtils<Employee> page, Employee employee) {
+		page = employeeService.queryByPage(page,employee);
+		ResultObject result = new ResultObject(page);
 		return result;
 	}
 }

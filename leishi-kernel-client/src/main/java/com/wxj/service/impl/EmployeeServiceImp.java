@@ -1,6 +1,9 @@
 package com.wxj.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.wxj.dao.EmployeeMapper;
 import com.wxj.domain.entity.Employee;
 import com.wxj.service.EmployeeService;
+import com.wxj.util.MapUtils;
+import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
 
 /**  
@@ -27,6 +32,18 @@ public class EmployeeServiceImp implements EmployeeService {
 		List<Employee> selectEmployee = employeeMapper.selectEmployee(emp);
 		ResultObject result = new ResultObject(selectEmployee.get(0));
 		return result;
+	}
+	@Override
+	public PageUtils<Employee> queryByPage(PageUtils<Employee> page,Employee employee) {
+		// 参数map
+		Map<String, Object> parmMap = new HashMap<String,Object>();
+		parmMap = MapUtils.entityToMap(employee, parmMap);
+		int totalCount = employeeMapper.selectEmployeeCount(parmMap);
+		page.setTotalCount(totalCount);
+		parmMap = MapUtils.entityToMap(page, parmMap);
+		List<Employee> list = employeeMapper.selectEmployeeByPage(parmMap);
+		page.setList(list);
+		return page;
 	}
 	
 }

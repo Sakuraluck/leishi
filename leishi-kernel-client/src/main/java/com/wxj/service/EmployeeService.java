@@ -1,6 +1,7 @@
 package com.wxj.service;
 
 import com.wxj.domain.entity.Employee;
+import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
 
 public interface EmployeeService {
@@ -14,5 +15,7 @@ public interface EmployeeService {
 	* @date:2018-12-26 22:30
 	*/
 	ResultObject query(Employee emp);
+
+	PageUtils<Employee> queryByPage(PageUtils<Employee> page,Employee employee);
 
 }

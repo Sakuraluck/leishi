@@ -15,6 +15,64 @@
 	<sql id="BaseColumnList">
 		id,name,age,phone,user_name,password,salary_grade,create_time,update_time
 	</sql>
+	<select id="selectEmployeeByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select <include refid="BaseColumnList" /> from employee
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name  like '%'#{name}'%'
+			</if>
+			<if test="age != null and age != ''">
+				and age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone = #{phone}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name = #{userName}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and salary_grade = #{salaryGrade}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+		</where>
+		
+		ORDER BY update_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 查询总条数 -->
+	<select id="selectEmployeeCount" resultType="Integer" parameterType="java.util.Map">
+		select COUNT(id) from employee
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name  like '%'#{name}'%'
+			</if>
+			<if test="age != null and age != ''">
+				and age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone = #{phone}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name = #{userName}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and salary_grade = #{salaryGrade}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+		</where>
+	</select>
 	<select id="selectEmployee" resultMap="BaseResultMap"  parameterType="com.wxj.domain.entity.Employee" >
 		select <include refid="BaseColumnList" /> from employee
 		<where>

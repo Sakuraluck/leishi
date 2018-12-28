@@ -2,6 +2,8 @@ package com.wxj.util;
 
 import java.util.List;
 
+import com.wxj.common.Contans;
+
 /**  
 * @ClassName: PageUtils  
 * @Description: TODO 分页工具类
@@ -12,47 +14,47 @@ import java.util.List;
 */
 public class PageUtils<T> {
 	/** 当前页 **/
-	private Integer pageIndex = 1;
+	private int pageIndex = Contans.PAGE_INDEX;
 	/** 总页数 **/
-	private Integer totalPage;
+	private int totalPage;
 	/** 数据总条数 **/
-	private Integer totalCount;
+	private int totalCount;
 	/** 开始位置 **/
-	private Integer begin;
+	private int begin;
 	/**页面大小 **/
-	private Integer pageSize;
+	private int pageSize = Contans.PAGE_SIZE;
 	/** 任意数据的集合 **/
 	private List<T> list;
-	public Integer getPageIndex() {
+	public int getPageIndex() {
 		return pageIndex;
 	}
-	public void setPageIndex(Integer pageIndex) {
+	public void setPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
 		initBegin();
 	}
-	public Integer getTotalPage() {
+	public int getTotalPage() {
 		return totalPage;
 	}
-	public void setTotalPage(Integer totalPage) {
+	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
 	}
-	public Integer getTotalCount() {
+	public int getTotalCount() {
 		return totalCount;
 	}
-	public void setTotalCount(Integer totalCount) {
+	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 		initTotalPage();
 	}
-	public Integer getBegin() {
+	public int getBegin() {
 		return begin;
 	}
-	public void setBegin(Integer begin) {
+	public void setBegin(int begin) {
 		this.begin = begin;
 	}
-	public Integer getPageSize() {
+	public int getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(Integer pageSize) {
+	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 		initTotalPage();
 	}
@@ -85,5 +87,10 @@ public class PageUtils<T> {
 		}else{
 			this.totalPage = (this.totalCount / this.pageSize) +1;
 		}
+	}
+	
+	public static void main(String[] args) {
+		PageUtils<Object> utils = new PageUtils<Object>();
+		utils.setTotalCount(1);
 	}
 }
