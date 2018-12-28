@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.wxj</groupId>
 	<artifactId>leishi-web-client</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>leishi-web-client Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -69,4 +68,5 @@
 			<artifactId>zuul-core</artifactId>
 		</dependency>
 	</dependencies>
+	<packaging>war</packaging>
 </project>
