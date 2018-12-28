@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.wxj.domain.vo;
 
 /**  
