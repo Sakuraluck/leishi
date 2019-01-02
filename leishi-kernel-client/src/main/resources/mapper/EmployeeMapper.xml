@@ -11,33 +11,89 @@
 		<result column="salary_grade" property="salaryGrade" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
 		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+		<result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
+		<result column="comm_address" property="commAddress" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="BaseColumnList">
-		id,name,age,phone,user_name,password,salary_grade,create_time,update_time
+		status,name,age,phone,user_name,password,salary_grade,create_time,update_time,comm_address,home_address
 	</sql>
-	<select id="selectEmployeeByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
-	select <include refid="BaseColumnList" /> from employee
-		<where>
-			<if test="id != null and id != ''">
-				and id = #{id}
-			</if>
+	<!-- 修改员工信息 wxj -->
+	<update id="updateEmployee" parameterType="com.wxj.domain.entity.Employee" >
+		UPDATE employee SET 
+			<trim suffixOverrides=",">
 			<if test="name != null and name != ''">
-				and name  like '%'#{name}'%'
+				name = #{name},
 			</if>
 			<if test="age != null and age != ''">
-				and age = #{age}
+				age = #{age},
 			</if>
 			<if test="phone != null and phone != ''">
-				and phone = #{phone}
+				phone = #{phone},
 			</if>
 			<if test="userName != null and userName != ''">
-				and user_name = #{userName}
+				user_name = #{userName},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
 			</if>
 			<if test="salaryGrade != null and salaryGrade != ''">
-				and salary_grade = #{salaryGrade}
+				salary_grade = #{salaryGrade},
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				comm_address = #{commAddress},
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				home_address = #{homeAddress},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+		</trim>
+			
+			<where>
+				1=1
+				<if test="id != null and id != ''">
+					and id = #{id}
+				</if>
+			</where> 
+	</update>
+	<!-- 查询最大的员工 id -->
+	<select id ="selectMaxEmId" resultType="Integer" >
+		SELECT MAX(ID) FROM employee
+	</select>
+	<select id="selectEmployeeByPage" resultType="com.wxj.domain.vo.employee.EmployeeVo" parameterType="java.util.Map">
+	select a.status,a.name,a.age,a.phone,a.user_name userName,a.password,b.descript salaryGrade,a.create_time createTime,a.update_time updateTime,a.comm_address commAddress,a.home_address homeAddress,b.text slary from employee a LEFT JOIN dictionary b on a.salary_grade = b.id 
+		<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and a.name  like CONCAT('%',#{name},'%')
+			</if>
+			<if test="age != null and age != ''">
+				and a.age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and a.phone = #{phone}
+			</if>
+			<if test="userName != null and userName != ''">
+				and a.user_name = #{userName}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and a.salary_grade = #{salaryGrade}
 			</if>
 			<if test="createTime != null and createTime != ''">
-				and create_time = #{createTime}
+				and a.create_time = #{createTime}
+			</if>
+			<if test="status != null and status != ''">
+				and a.status = #{status}
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				and a.comm_address like CONCAT('%',#{commAddress},'%')
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				and a.home_address like CONCAT('%',#{homeAddress},'%')
 			</if>
 		</where>
 		
@@ -48,28 +104,37 @@
 	</select>
 	<!-- 查询总条数 -->
 	<select id="selectEmployeeCount" resultType="Integer" parameterType="java.util.Map">
-		select COUNT(id) from employee
-		<where>
+		select COUNT(id) from employee a
+			<where>
 			<if test="id != null and id != ''">
-				and id = #{id}
+				and a.id = #{id}
 			</if>
 			<if test="name != null and name != ''">
-				and name  like '%'#{name}'%'
+				and a.name  like CONCAT('%',#{name},'%')
 			</if>
 			<if test="age != null and age != ''">
-				and age = #{age}
+				and a.age = #{age}
 			</if>
 			<if test="phone != null and phone != ''">
-				and phone = #{phone}
+				and a.phone = #{phone}
 			</if>
 			<if test="userName != null and userName != ''">
-				and user_name = #{userName}
+				and a.user_name = #{userName}
 			</if>
 			<if test="salaryGrade != null and salaryGrade != ''">
-				and salary_grade = #{salaryGrade}
+				and a.salary_grade = #{salaryGrade}
 			</if>
 			<if test="createTime != null and createTime != ''">
-				and create_time = #{createTime}
+				and a.create_time = #{createTime}
+			</if>
+			<if test="status != null and status != ''">
+				and a.status = #{status}
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				and a.comm_address like CONCAT('%',#{commAddress},'%')
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				and a.home_address like CONCAT('%',#{homeAddress},'%')
 			</if>
 		</where>
 	</select>
@@ -103,6 +168,9 @@
 			<if test="updateTime != null and updateTime != ''">
 				and update_time = #{updateTime}
 			</if>
+			<if test="status != null and status != ''">
+				and status = #{status}
+			</if>
 		</where>
 	</select>
 	<insert id="insertEmployee"  parameterType="com.wxj.domain.entity.Employee" >
@@ -129,11 +197,16 @@
 			<if test="salaryGrade != null and salaryGrade != ''">
 				salary_grade,
 			</if>
-			<if test="createTime != null and createTime != ''">
 				create_time,
-			</if>
-			<if test="updateTime != null and updateTime != ''">
 				update_time,
+			<if test="commAddress != null and commAddress != ''">
+				comm_address,
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				home_address,
+			</if>
+			<if test="status != null and status != ''">
+				status,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -158,11 +231,16 @@
 			<if test="salaryGrade != null and salaryGrade != ''">
 				#{salaryGrade},
 			</if>
-			<if test="createTime != null and createTime != ''">
-				#{createTime},
+				SYSDATE(),
+				SYSDATE(),
+			<if test="commAddress != null and commAddress != ''">
+				#{commAddress},
 			</if>
-			<if test="updateTime != null and updateTime != ''">
-				#{updateTime},
+			<if test="homeAddress != null and homeAddress != ''">
+				#{homeAddress},
+			</if>
+			<if test="status != null and status != ''">
+				#{status},
 			</if>
 		</trim>
 	</insert>
@@ -195,6 +273,9 @@
 			</if>
 			<if test="updateTime != null and updateTime != ''">
 				and update_time = #{updateTime}
+			</if>
+			<if test="status != null and status != ''">
+				and status = #{status}
 			</if>
 		</where>
 	</delete>

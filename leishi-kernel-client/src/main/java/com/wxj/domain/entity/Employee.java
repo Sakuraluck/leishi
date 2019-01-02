@@ -26,7 +26,30 @@ public class Employee{
 	private String createTime;
 	/**修改时间*/
 	private String updateTime;
-
+	/** 通讯地址*/
+	private String commAddress;
+	/** 家庭住址 */
+	private String homeAddress;
+	/** 状态：1在职，0离职 */
+	private String status;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getCommAddress() {
+		return commAddress;
+	}
+	public void setCommAddress(String commAddress) {
+		this.commAddress = commAddress;
+	}
+	public String getHomeAddress() {
+		return homeAddress;
+	}
+	public void setHomeAddress(String homeAddress) {
+		this.homeAddress = homeAddress;
+	}
 	public String getId(){
 		return this.id;
 	}
@@ -80,5 +103,11 @@ public class Employee{
 	}
 	public void setUpdateTime(String updateTime){
 		this.updateTime=updateTime;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", phone=" + phone + ", userName=" + userName
+				+ ", password=" + password + ", salaryGrade=" + salaryGrade + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", commAddress=" + commAddress + ", homeAddress=" + homeAddress + "]";
 	}
 }

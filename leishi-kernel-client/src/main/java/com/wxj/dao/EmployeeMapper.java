@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wxj.domain.entity.Employee;
+import com.wxj.domain.vo.employee.EmployeeVo;
 /**
 * @ClassName:  EmployeeMapper
 * @Description:TODO
@@ -46,5 +47,19 @@ public interface EmployeeMapper{
 	* @return   
 	* @date:2018-12-28 16:00
 	*/
-	public List<Employee> selectEmployeeByPage(Map<String, Object> parmMap);
+	public List<EmployeeVo> selectEmployeeByPage(Map<String, Object> parmMap);
+	/**  
+	* @Title: selectMaxEmId  
+	* @Description: TODO 查询最大的员工ID
+	* @return   
+	* @date:2019-01-01 13:16
+	*/
+	public Integer selectMaxEmId();
+	/**  
+	* @Title: updateEmployee  
+	* @Description: TODO 更新员工信息
+	* @param employee   
+	* @date:2019-01-01 16:02
+	*/
+	public void updateEmployee(Employee employee);
 }
