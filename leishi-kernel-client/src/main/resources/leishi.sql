@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-12-26 21:11:41
+Date: 2019-01-09 15:46:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,17 +71,26 @@ CREATE TABLE `employee` (
   `name` varchar(20) DEFAULT NULL COMMENT '姓名',
   `age` int(2) DEFAULT NULL COMMENT '年龄',
   `phone` int(11) DEFAULT NULL COMMENT '电话号码',
+  `identity` varchar(20) NOT NULL COMMENT '身份证号',
   `user_name` varchar(100) DEFAULT NULL COMMENT '登录用户名',
+  `comm_address` varchar(100) DEFAULT NULL COMMENT '通讯地址',
+  `home_address` varchar(100) DEFAULT NULL COMMENT '家庭住址',
   `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `salary_grade` int(1) DEFAULT NULL COMMENT '薪资等级',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `status` int(1) DEFAULT NULL COMMENT '状态：1在职，0离职',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
+INSERT INTO `employee` VALUES ('1', 'WXJ', '25', '1877211854', '422802199305142139', 'WXJ', '湖北利川', '湖北利川', '123456', '1', '2019-01-01 12:19:29', '2019-01-09 14:56:46', '1');
+INSERT INTO `employee` VALUES ('2', '钱红军', '26', '1877211854', '422802199305142139', 'QHJ', '湖北利川', '湖北利川', 'QHJ', '2', '2019-01-01 15:34:24', '2019-01-09 14:56:23', '1');
+INSERT INTO `employee` VALUES ('3', '钱红军', '26', '1877211854', '422802199305142139', 'QHJ', '湖北利川', '湖北利川', 'QHJ', '3', '2019-01-01 15:36:46', '2019-01-09 14:56:23', '1');
+INSERT INTO `employee` VALUES ('4', '钱红军', '26', '1877211854', '422802199305142139', 'QHJ', '湖北利川', '湖北利川', 'QHJ', '3', '2019-01-01 15:40:25', '2019-01-09 14:56:24', '1');
+INSERT INTO `employee` VALUES ('5', '钱红军', '26', '1877211854', '422802199305142139', 'QHJ', '湖北利川', '湖北利川', 'QHJ', '3', '2019-01-01 15:42:02', '2019-01-09 14:56:24', '1');
 
 -- ----------------------------
 -- Table structure for `salary_record`
@@ -92,15 +101,18 @@ CREATE TABLE `salary_record` (
   `before_greade` int(1) NOT NULL COMMENT '原来的薪资等级',
   `after_greade` int(1) NOT NULL COMMENT '变化后薪资等级',
   `em_id` int(11) NOT NULL COMMENT '员工id',
-  `change_desc` int(1) NOT NULL COMMENT '变化描述',
+  `change_desc` varchar(100) NOT NULL COMMENT '变化描述',
   `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `reason` varchar(400) NOT NULL COMMENT '升降原因',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工薪资等级记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='员工薪资等级记录表';
 
 -- ----------------------------
 -- Records of salary_record
 -- ----------------------------
+INSERT INTO `salary_record` VALUES ('1', '0', '3', '3', '入职', '2019-01-01 16:17:19', '新员工入职！');
+INSERT INTO `salary_record` VALUES ('2', '0', '3', '5', '入职', '2019-01-01 16:17:17', '新员工入职！');
+INSERT INTO `salary_record` VALUES ('3', '3', '2', '2', '降薪', '2019-01-01 16:15:17', '重大失误一次，所以降薪');
 
 -- ----------------------------
 -- Table structure for `work_area`
