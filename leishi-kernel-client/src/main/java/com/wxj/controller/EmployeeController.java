@@ -50,7 +50,7 @@ public class EmployeeController {
 	* @return   
 	* @date:2019-01-01 12:12
 	*/
-	@RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResultObject add(Employee employee) {
 		employeeService.add(employee);
@@ -64,7 +64,7 @@ public class EmployeeController {
 	* @return   
 	* @date:2019-01-01 15:46
 	*/
-	@RequestMapping(value = "/modify", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResultObject modify(Employee employee,String reason) {
 		employeeService.modify(employee,reason);
