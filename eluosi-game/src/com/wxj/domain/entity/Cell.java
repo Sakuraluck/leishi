@@ -2,9 +2,6 @@ package com.wxj.domain.entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.wxj.task.MyTask;
-
 import java.util.Set;
 /**
  * @ClassName: Cell
@@ -34,48 +31,12 @@ public class Cell {
 
 	public Cell() {
 	}
-
-	/**
-	 * @Title: drop
-	 * @Description: TODO 格子下落
-	 * @date:2019-01-11 09:16
-	 */
-	public void drop(Cell[] arr) {
-		sortCell(arr);
-		for (Cell cell : arr) {
-			cell.setRow(cell.getRow() + 1);
-			int colLimit = 0;
-			if (cell.getRow() > colLimit) {
-				cell.setRow(colLimit);
-				MyTask.stop = true;
-				fd(arr);
-				Wall.list.add(arr[0]);
-				Wall.list.add(arr[1]);
-				Wall.list.add(arr[2]);
-				Wall.list.add(arr[3]);
-				return;
-			}
+	public void drop() {
+		row++;
+		if(row>=19) {
+			row = 19;
 		}
 	}
-
-	/**
-	 * @Title: sortCell
-	 * @Description: TODO
-	 * @param arr
-	 * @date:2019-01-11 13:04
-	 */
-	private void sortCell(Cell[] arr) {
-		for (int i = 0; i < arr.length - 1; i++) {
-			for (int j = i; j < arr.length - 1 - i; i++) {
-				if (arr[j].getRow() < arr[j + 1].getRow()) {
-					Cell temp = arr[j];
-					arr[j] = arr[j + 1];
-					arr[j + 1] = temp;
-				}
-			}
-		}
-	}
-
 	/**
 	 * @Title: getColLimit
 	 * @Description: TODO
@@ -85,47 +46,6 @@ public class Cell {
 	 */
 	
 
-	public void fd(Cell[] arr) {
-		//找到每一列最大的那个位置作为最后记录的位置
-		Map<Integer,Integer> cellMap = new HashMap<Integer,Integer>();
-		for (Cell cell : arr) {
-			if(!cellMap.containsKey(cell.getCol())) {
-				cellMap.put(cell.getCol(),cell.getRow());
-			}else {
-				Integer row = cellMap.get(cell.getCol());
-				if(row<cell.getRow()) {
-					cellMap.put(cell.getCol(),cell.getRow());
-				}
-			}
-		}
-		
-		Set<Entry<Integer,Integer>> entrySet = cellMap.entrySet();
-		for (Entry<Integer, Integer> entry : entrySet) {
-			Integer key = entry.getKey();
-			Integer value = entry.getValue();
-			if (key == 0) {
-				Wall.minHight0 = value;
-			} else if (key == 1) {
-				Wall.minHight1 = value;
-			} else if (key == 2) {
-				Wall.minHight2 = value;
-			} else if (key == 3) {
-				Wall.minHight3 = value;
-			} else if (key == 4) {
-				Wall.minHight4 = value;
-			} else if (key == 5) {
-				Wall.minHight5 = value;
-			} else if (key == 6) {
-				Wall.minHight6 = value;
-			} else if (key == 7) {
-				Wall.minHight7 = value;
-			} else if (key == 8) {
-				Wall.minHight8 = value;
-			} else if (key == 9) {
-				Wall.minHight9 = value;
-			}
-		}
-	}
 
 	/**
 	 * @Title: moveLeft

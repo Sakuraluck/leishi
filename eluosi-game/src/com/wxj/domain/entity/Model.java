@@ -53,30 +53,41 @@ public class Model {
 	}
 	public Model() {
 	}
-	
+	public void moveLeft(Model model) {
+		model.getCe0().moveLeft();
+		model.getCe1().moveLeft();
+		model.getCe2().moveLeft();
+		model.getCe3().moveLeft();
+	}
 	public void drop(Model model) {
-		int colLimit0 = getColLimit(ce0);
-		int colLimit1 = getColLimit(ce1);
-		int colLimit2 = getColLimit(ce2);
-		int colLimit3 = getColLimit(ce3);
-		if(ce3.getRow() >=colLimit3 ||
-				ce2.getRow() >=colLimit2 ||
-				ce1.getRow() >=colLimit1 ||
-				ce0.getRow() >=colLimit0) {
+		int colLimit0 = getColLimit(model.getCe0());
+		int colLimit1 = getColLimit(model.getCe1());
+		int colLimit2 = getColLimit(model.getCe2());
+		int colLimit3 = getColLimit(model.getCe3());
+		if(model.getCe3().getRow() >=colLimit3 ||
+				model.getCe2().getRow() >=colLimit2 ||
+				model.getCe1().getRow() >=colLimit1 ||
+				model.getCe0().getRow() >=colLimit0) {
 			MyTask.stop = true;
 			recordMinCol(model);
-			Wall.list.add(ce0);
-			Wall.list.add(ce1);
-			Wall.list.add(ce2);
-			Wall.list.add(ce3);
+			Wall.list.add(model.getCe0());
+			Wall.list.add(model.getCe1());
+			Wall.list.add(model.getCe2());
+			Wall.list.add(model.getCe3());
 			return;
 		}
-		ce0.setRow(ce0.getRow()+1);
-		ce1.setRow(ce1.getRow()+1);
-		ce2.setRow(ce2.getRow()+1);
-		ce3.setRow(ce3.getRow()+1);
+		model.getCe0().drop();
+		model.getCe1().drop();
+		model.getCe2().drop();
+		model.getCe3().drop();
 	}
 	
+	/**  
+	* @Title: recordMinCol  
+	* @Description: TODO 记录第一行最高的位置
+	* @param model   
+	* @date:2019-01-11 16:09
+	*/
 	public void recordMinCol(Model model) {
 		//找到每一列最大的那个位置作为最后记录的位置
 		Map<Integer,Integer> cellMap = new HashMap<Integer,Integer>();
@@ -120,6 +131,13 @@ public class Model {
 			}
 		}
 	}
+	/**  
+	* @Title: getColLimit  
+	* @Description: TODO 获取第一行的最高的那个位置
+	* @param cell
+	* @return   
+	* @date:2019-01-11 16:09
+	*/
 	private int getColLimit(Cell cell) {
 		int limit = 0;
 		if (cell.getCol() == 0) {
