@@ -14,9 +14,10 @@
 		<result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
 		<result column="comm_address" property="commAddress" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="identity" property="identity" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="BaseColumnList">
-		status,name,age,phone,user_name,password,salary_grade,create_time,update_time,comm_address,home_address
+		status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
 	</sql>
 	<!-- 修改员工信息 wxj -->
 	<update id="updateEmployee" parameterType="com.wxj.domain.entity.Employee" >
@@ -63,7 +64,7 @@
 		SELECT MAX(ID) FROM employee
 	</select>
 	<select id="selectEmployeeByPage" resultType="com.wxj.domain.vo.employee.EmployeeVo" parameterType="java.util.Map">
-	select a.status,a.name,a.age,a.phone,a.user_name userName,a.password,b.descript salaryGrade,a.create_time createTime,a.update_time updateTime,a.comm_address commAddress,a.home_address homeAddress,b.text slary from employee a LEFT JOIN dictionary b on a.salary_grade = b.id 
+	select a.identity,a.status,a.name,a.age,a.phone,a.user_name userName,a.password,b.descript salaryGrade,a.create_time createTime,a.update_time updateTime,a.comm_address commAddress,a.home_address homeAddress,b.text slary from employee a LEFT JOIN dictionary b on a.salary_grade = b.id 
 		<where>
 			<if test="id != null and id != ''">
 				and a.id = #{id}
@@ -88,6 +89,9 @@
 			</if>
 			<if test="status != null and status != ''">
 				and a.status = #{status}
+			</if>
+			<if test="identity != null and identity != ''">
+				and a.identity = #{identity}
 			</if>
 			<if test="commAddress != null and commAddress != ''">
 				and a.comm_address like CONCAT('%',#{commAddress},'%')
@@ -130,6 +134,9 @@
 			<if test="status != null and status != ''">
 				and a.status = #{status}
 			</if>
+			<if test="identity != null and identity != ''">
+				and a.identity = #{identity}
+			</if>
 			<if test="commAddress != null and commAddress != ''">
 				and a.comm_address like CONCAT('%',#{commAddress},'%')
 			</if>
@@ -171,6 +178,9 @@
 			<if test="status != null and status != ''">
 				and status = #{status}
 			</if>
+			<if test="identity != null and identity != ''">
+				and identity = #{identity}
+			</if>
 		</where>
 	</select>
 	<insert id="insertEmployee"  parameterType="com.wxj.domain.entity.Employee" >
@@ -208,6 +218,9 @@
 			<if test="status != null and status != ''">
 				status,
 			</if>
+			<if test="identity != null and identity != ''">
+				identity,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
@@ -241,6 +254,9 @@
 			</if>
 			<if test="status != null and status != ''">
 				#{status},
+			</if>
+			<if test="identity != null and identity != ''">
+				#{identity},
 			</if>
 		</trim>
 	</insert>
@@ -276,6 +292,9 @@
 			</if>
 			<if test="status != null and status != ''">
 				and status = #{status}
+			</if>
+			<if test="identity != null and identity != ''">
+				and identity = #{identity}
 			</if>
 		</where>
 	</delete>

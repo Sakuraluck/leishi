@@ -34,7 +34,7 @@ public class EmployeeController {
 	* @return   
 	* @date:2019-01-01 12:10
 	*/
-	@RequestMapping(value = "/query", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/query", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResultObject query(PageUtils<EmployeeVo> page, Employee employee) {
 		page = employeeService.queryByPage(page,employee);

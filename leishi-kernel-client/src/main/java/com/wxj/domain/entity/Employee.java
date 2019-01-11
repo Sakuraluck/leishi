@@ -32,6 +32,15 @@ public class Employee{
 	private String homeAddress;
 	/** 状态：1在职，0离职 */
 	private String status;
+	/** 身份证号 */
+	private String identity;
+	
+	public String getIdentity() {
+		return identity;
+	}
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -108,6 +117,7 @@ public class Employee{
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", phone=" + phone + ", userName=" + userName
 				+ ", password=" + password + ", salaryGrade=" + salaryGrade + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", commAddress=" + commAddress + ", homeAddress=" + homeAddress + "]";
+				+ ", updateTime=" + updateTime + ", commAddress=" + commAddress + ", homeAddress=" + homeAddress
+				+ ", status=" + status + ", identity=" + identity + "]";
 	}
 }
