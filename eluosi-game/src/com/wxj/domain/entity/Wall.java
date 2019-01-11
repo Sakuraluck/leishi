@@ -31,17 +31,19 @@ public class Wall {
 	*/
 	public static void printWall(Model model) {
 		for(int i =0 ; i< 20 ;i++) {
+			System.out.print("||");
 			for(int j =0 ; j< 10 ;j++) {
 				boolean flg = printWallList(i,j);
 				if((i==model.getCe0().getRow() && j==model.getCe0().getCol()) || 
 						(i==model.getCe1().getRow() && j==model.getCe1().getCol()) || 
 						(i==model.getCe2().getRow() && j==model.getCe2().getCol()) || 
 						(i==model.getCe3().getRow() && j==model.getCe3().getCol())|| flg) {
-					System.out.print(" ¸ñ");
+					System.out.print(" E");
 				}else {
-					System.out.print(" +");
+					System.out.print("  ");
 				}
 			}
+			System.out.print("||");
 			System.out.println();
 		}
 	}

@@ -15,16 +15,16 @@ public class MyTask extends TimerTask {
 	@Override
 	public void run() {
 		boolean gameOver = getGameOver();
-		if(gameOver) {
-			System.exit(0);
-		}
 		if(stop) {
 			model = getModel();
 			stop = false;
 		}
 		Wall.printWall(model);
 		model.drop(model);
-		System.out.println("====================");
+		System.out.println("========================");
+		if(gameOver) {
+			System.exit(0);
+		}
 	}
 	/**  
 	* @Title: getGameOver  
