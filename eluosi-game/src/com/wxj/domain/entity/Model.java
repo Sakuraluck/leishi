@@ -59,6 +59,12 @@ public class Model {
 		model.getCe2().moveLeft();
 		model.getCe3().moveLeft();
 	}
+	public void moveRight(Model model) {
+		model.getCe0().moveRight();
+		model.getCe1().moveRight();
+		model.getCe2().moveRight();
+		model.getCe3().moveRight();
+	}
 	public void drop(Model model) {
 		int colLimit0 = getColLimit(model.getCe0());
 		int colLimit1 = getColLimit(model.getCe1());

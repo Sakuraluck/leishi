@@ -23,6 +23,12 @@ public class MyTask extends TimerTask {
 			model = getModel();
 			stop = false;
 		}
+		int xx = (int)(Math.random()*10);
+		if( xx %2 ==0 ) {
+			model.moveLeft(model);
+		}else {
+			model.moveRight(model);
+		}
 		Wall.printWall(model);
 		model.drop(model);
 		System.out.println("========================");

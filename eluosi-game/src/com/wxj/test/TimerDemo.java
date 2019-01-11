@@ -19,6 +19,6 @@ public class TimerDemo {
         //创建定时器对象
         Timer t=new Timer();
         //在3秒后执行MyTask类中的run方法
-        t.schedule(new MyTask(),new Date(), 100);
+        t.schedule(new MyTask(),new Date(), 500);
     }
 }
