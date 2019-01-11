@@ -1,6 +1,10 @@
-package com.wxj.domain.entity;
+package com.wxj.task;
 
 import java.util.TimerTask;
+
+import com.wxj.domain.entity.Cell;
+import com.wxj.domain.entity.Model;
+import com.wxj.domain.entity.Wall;
 /**  
 * @ClassName: MyTask  
 * @Description: TODO

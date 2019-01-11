@@ -1,9 +1,9 @@
 package com.wxj.test;
 
-import com.wxj.domain.entity.MyTask;
-
 import java.util.Date;
 import java.util.Timer;
+
+import com.wxj.task.MyTask;
 
 /**  
 * @ClassName: TimerDemo  

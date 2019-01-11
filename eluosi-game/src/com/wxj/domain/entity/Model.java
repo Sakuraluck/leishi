@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.wxj.task.MyTask;
+
 /**  
 * @ClassName: Model  
 * @Description: TODO 小格子结合起来的块儿
