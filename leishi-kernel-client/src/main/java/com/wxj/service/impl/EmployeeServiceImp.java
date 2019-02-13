@@ -11,12 +11,14 @@ import com.wxj.dao.EmployeeMapper;
 import com.wxj.dao.SalaryRecordMapper;
 import com.wxj.domain.entity.Employee;
 import com.wxj.domain.entity.SalaryRecord;
+import com.wxj.domain.vo.KeyValueVo;
 import com.wxj.domain.vo.employee.EmployeeVo;
 import com.wxj.service.EmployeeService;
+import com.wxj.util.MD5Utils;
 import com.wxj.util.MapUtils;
 import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
-
+import com.wxj.dao.DictionaryMapper;
 /**
  * @ClassName: EmployeeServiceImp
  * @Description: TODO 员工管理服务实现类
@@ -31,6 +33,8 @@ public class EmployeeServiceImp implements EmployeeService {
 	private EmployeeMapper employeeMapper;
 	@Autowired
 	private SalaryRecordMapper salaryRecordMapper;
+	@Autowired
+	private DictionaryMapper DictionaryMapper;
 
 	@Override
 	public ResultObject query(Employee emp) {
@@ -53,7 +57,13 @@ public class EmployeeServiceImp implements EmployeeService {
 	}
 
 	@Override
-	public void add(Employee employee) {
+	public int add(Employee employee) {
+		boolean verifyID = verifyID(employee.getIdentity());
+		if(verifyID) {
+			return 0;
+		}
+		employee.setPassword(MD5Utils.getMD5(employee.getPassword()));
+		employee.setStatus("1");
 		employeeMapper.insertEmployee(employee);
 		Integer maxEmId = employeeMapper.selectMaxEmId();
 		SalaryRecord record = new SalaryRecord();
@@ -63,6 +73,7 @@ public class EmployeeServiceImp implements EmployeeService {
 		record.setChangeDesc("入职");
 		record.setReason("新员工入职！");
 		salaryRecordMapper.insertSalaryRecord(record);
+		return 1;
 	}
 
 	@Override
@@ -111,6 +122,22 @@ public class EmployeeServiceImp implements EmployeeService {
 			result = "涨薪";
 		}
 		return result;
+	}
+
+	@Override
+	public List<KeyValueVo> querySalaryGrade() {
+		return DictionaryMapper.selectDictionaryByKey("salary");
+	}
+
+	@Override
+	public boolean verifyID(String identity) {
+		Employee employee = new Employee();
+		employee.setIdentity(identity);
+		List<Employee> selectEmployee = employeeMapper.selectEmployee(employee);
+		if(selectEmployee != null && selectEmployee.size() > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

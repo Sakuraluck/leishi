@@ -1,14 +1,17 @@
 package com.wxj.controller;
 
+import java.util.List;
+
+import org.bouncycastle.jcajce.provider.digest.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.wxj.domain.entity.Employee;
+import com.wxj.domain.vo.KeyValueVo;
 import com.wxj.domain.vo.employee.EmployeeVo;
 import com.wxj.service.EmployeeService;
 import com.wxj.util.PageUtils;
@@ -53,8 +56,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResultObject add(Employee employee) {
-		employeeService.add(employee);
-		ResultObject result = new ResultObject();
+		ResultObject result = new ResultObject(employeeService.add(employee));
 		return result;
 	}
 	/**  
@@ -69,6 +71,26 @@ public class EmployeeController {
 	public ResultObject modify(Employee employee,String reason) {
 		employeeService.modify(employee,reason);
 		ResultObject result = new ResultObject();
+		return result;
+	}
+	@RequestMapping(value = "/salaryGrade", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject querySalaryGrade() {
+		List<KeyValueVo> list = employeeService.querySalaryGrade();
+		ResultObject result = new ResultObject(list);
+		return result;
+	}
+	/**  
+	* @Title: verifyID  
+	* @Description: TODO 校验是否有重复的身份证号
+	* @return   
+	* @date:2019-01-20 18:29
+	*/
+	@RequestMapping(value = "/verifyID", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject verifyID(String identity) {
+		boolean flg = employeeService.verifyID(identity);
+		ResultObject result = new ResultObject(flg);
 		return result;
 	}
 }
