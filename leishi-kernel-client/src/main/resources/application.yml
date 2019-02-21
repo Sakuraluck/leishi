@@ -18,8 +18,7 @@ mybatis:
   typeAliasesPackage: com.wxj.entity
   mapperLocations: classpath:mapper/*.xml
 logging:
-  name: kernel.log
-  path: \leishi\kernel
+  file: \leishi\kernel.log
   level: 
     com.wxj.controller: debug
     com.wxj.dao: debug

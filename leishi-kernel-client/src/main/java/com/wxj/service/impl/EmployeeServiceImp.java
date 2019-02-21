@@ -80,6 +80,7 @@ public class EmployeeServiceImp implements EmployeeService {
 	public void modify(Employee employee, String reason) {
 		Employee em = new Employee();
 		em.setId(employee.getId());
+		System.out.println();
 		Employee vo = employeeMapper.selectEmployee(em).get(0);
 		recordSalaryGrade(employee, vo, reason);
 		employeeMapper.updateEmployee(employee);
