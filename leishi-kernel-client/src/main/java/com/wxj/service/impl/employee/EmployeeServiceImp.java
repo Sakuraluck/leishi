@@ -1,4 +1,4 @@
-package com.wxj.service.impl;
+package com.wxj.service.impl.employee;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +18,7 @@ import com.wxj.util.MD5Utils;
 import com.wxj.util.MapUtils;
 import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
+import com.wxj.common.Contans;
 import com.wxj.dao.DictionaryMapper;
 /**
  * @ClassName: EmployeeServiceImp
@@ -80,7 +81,6 @@ public class EmployeeServiceImp implements EmployeeService {
 	public void modify(Employee employee, String reason) {
 		Employee em = new Employee();
 		em.setId(employee.getId());
-		System.out.println();
 		Employee vo = employeeMapper.selectEmployee(em).get(0);
 		recordSalaryGrade(employee, vo, reason);
 		employeeMapper.updateEmployee(employee);
@@ -137,6 +137,43 @@ public class EmployeeServiceImp implements EmployeeService {
 		List<Employee> selectEmployee = employeeMapper.selectEmployee(employee);
 		if(selectEmployee != null && selectEmployee.size() > 0) {
 			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean login(Employee employee) {
+		String password = MD5Utils.getMD5(employee.getPassword());
+		employee.setPassword(password);
+		employee.setStatus("1");
+		List<Employee> list = employeeMapper.selectEmployee(employee);
+		if(list != null && list.size() >0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean resetPassowrd(Employee employee) {
+		// TODO 后期需要添加权限验证，即，只要最高超级管理员才能进行重置
+		String password = MD5Utils.getMD5(Contans.RESET_PASSWORD);
+		employee.setPassword(password);
+		employeeMapper.updateEmployee(employee);
+		return true;
+	}
+
+	@Override
+	public boolean mofifyPassword(Employee employee,String newPassword) throws Exception {
+		String password = MD5Utils.getMD5(employee.getPassword());
+		employee.setPassword(password);
+		employee.setStatus("1");
+		List<Employee> list = employeeMapper.selectEmployee(employee);
+		if(list != null && list.size() >0) {
+			password = MD5Utils.getMD5(newPassword);
+			employee.setPassword(password);
+			employeeMapper.updateEmployee(employee);
+		}else {
+			throw new Exception("原始密码有误!");
 		}
 		return false;
 	}

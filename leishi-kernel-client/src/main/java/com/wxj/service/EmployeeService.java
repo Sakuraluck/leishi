@@ -55,4 +55,31 @@ public interface EmployeeService {
 	*/
 	boolean verifyID(String identity);
 
+	/**  
+	* @Title: login  
+	* @Description: TODO 登录
+	* @param employee
+	* @return   
+	* @date:2019-03-07 15:35
+	*/
+	boolean login(Employee employee);
+
+	/**  
+	* @Title: resetPassowrd  
+	* @Description: TODO 重置密码
+	* @param employee
+	* @return   
+	* @date:2019-03-07 15:52
+	*/
+	boolean resetPassowrd(Employee employee);
+
+	/**  
+	* @Title: mofifyPassword  
+	* @Description: TODO 修改密码
+	* @param employee
+	* @return   
+	* @date:2019-03-07 16:12
+	*/
+	boolean mofifyPassword(Employee employee,String newPassword) throws Exception ;
+
 }

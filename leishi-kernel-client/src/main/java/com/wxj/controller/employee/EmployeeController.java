@@ -1,4 +1,4 @@
-package com.wxj.controller;
+package com.wxj.controller.employee;
 
 import java.util.List;
 
@@ -91,6 +91,58 @@ public class EmployeeController {
 	public ResultObject verifyID(String identity) {
 		boolean flg = employeeService.verifyID(identity);
 		ResultObject result = new ResultObject(flg);
+		return result;
+	}
+	/**  
+	* @Title: login  
+	* @Description: TODO 登录
+	* @param employee
+	* @return   
+	* @date:2019-03-07 15:35
+	*/
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject login(Employee employee) {
+		boolean flg = employeeService.login(employee);
+		ResultObject result = new ResultObject(flg);
+		return result;
+	}
+	
+	/**  
+	* @Title: resetPassowrd  
+	* @Description: TODO 重置密码
+	* @param employee
+	* @return   
+	* @date:2019-03-07 15:50
+	*/
+	@RequestMapping(value = "/resetPassowrd", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject resetPassowrd(Employee employee) {
+		
+		boolean flg = employeeService.resetPassowrd(employee);
+		ResultObject result = new ResultObject(flg);
+		return result;
+	}
+	
+	/**  
+	* @Title: mofifyPassword  
+	* @Description: TODO 修改密码
+	* @param employee
+	* @return   
+	* @date:2019-03-07 16:07
+	*/
+	@RequestMapping(value = "/mofifyPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject mofifyPassword(Employee employee,String newPassword) {
+		ResultObject result = new ResultObject();
+		boolean flg;
+		try {
+			flg = employeeService.mofifyPassword(employee,newPassword);
+			result.setObj(flg);
+		} catch (Exception e) {
+			result.setObj(false);
+			result.setObj(e.getMessage());
+		}
 		return result;
 	}
 }

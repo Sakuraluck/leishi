@@ -9,4 +9,6 @@ public class Contans {
 	public static int PAGE_SIZE = 10;
 	/** 默认当前页数  */
 	public static int PAGE_INDEX = 1;
+	/** 重置密码*/
+	public static String RESET_PASSWORD = "123456";
 }
