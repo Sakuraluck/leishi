@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.wxj.job;
 
 import java.text.SimpleDateFormat;
