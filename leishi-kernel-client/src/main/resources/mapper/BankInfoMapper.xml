@@ -15,6 +15,53 @@
 	<sql id="BaseColumnList">
 		id,bank_card,bank_name,bank_deposit,sign,bank_address,em_id,update_time,create_time
 	</sql>
+	
+	<select id="selectBankInfoByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+			a.id,
+	a.bank_card,
+	a.bank_name,
+	a.bank_deposit,
+	CASE a.sign WHEN 1 THEN '在用' WHEN 0 THEN '备用' END sign,
+	a.bank_address,
+	b.name em_id,
+	a.update_time,
+	a.create_time
+		from bank_info a left join employee b on a.em_id = b.id
+		<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				and a.bank_card = #{bankCard}
+			</if>
+			<if test="bankName != null and bankName != ''">
+				and a.bank_name = #{bankName}
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				and a.bank_deposit = #{bankDeposit}
+			</if>
+			<if test="sign != null and sign != ''">
+				and a.sign = #{sign}
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				and a.bank_address = #{bankAddress}
+			</if>
+			<if test="emId != null and emId != ''">
+				and a.em_id = #{emId}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and a.update_time = #{updateTime}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+		</where>
+		ORDER BY a.update_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
 	<!-- 修改银行信息 -->
 	<update id="updateBankInfo" parameterType="com.wxj.domain.entity.bank.BankInfo">
 		UPDATE bank_info
@@ -50,30 +97,6 @@
 			1=1
 			<if test="id != null and id != ''">
 				and id = #{id}
-			</if>
-			<if test="bankCard != null and bankCard != ''">
-				and bank_card = #{bankCard}
-			</if>
-			<if test="bankName != null and bankName != ''">
-				and bank_name = #{bankName}
-			</if>
-			<if test="bankDeposit != null and bankDeposit != ''">
-				and bank_deposit = #{bankDeposit}
-			</if>
-			<if test="sign != null and sign != ''">
-				and sign = #{sign}
-			</if>
-			<if test="bankAddress != null and bankAddress != ''">
-				and bank_address = #{bankAddress}
-			</if>
-			<if test="emId != null and emId != ''">
-				and em_id = #{emId}
-			</if>
-			<if test="updateTime != null and updateTime != ''">
-				and update_time = #{updateTime}
-			</if>
-			<if test="createTime != null and createTime != ''">
-				and create_time = #{createTime}
 			</if>
 		</where>
 	</update>

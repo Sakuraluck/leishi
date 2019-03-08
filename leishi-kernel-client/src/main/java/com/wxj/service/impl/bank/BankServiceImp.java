@@ -3,12 +3,18 @@
  */
 package com.wxj.service.impl.bank;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wxj.dao.BankInfoMapper;
 import com.wxj.domain.entity.bank.BankInfo;
 import com.wxj.service.BankService;
+import com.wxj.util.MapUtils;
+import com.wxj.util.PageUtils;
 
 /**  
 * @ClassName: BankServiceImp  
@@ -38,6 +44,17 @@ public class BankServiceImp implements BankService {
 	public boolean modify(BankInfo bankInfo) {
 		bankInfoMapper.updateBankInfo(bankInfo);
 		return true;
+	}
+	@Override
+	public PageUtils<BankInfo> query(BankInfo bankInfo, PageUtils<BankInfo> page) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map = MapUtils.entityToMap(bankInfo, map);
+		List<BankInfo> list = bankInfoMapper.selectBankInfoByMap(map);
+		map = MapUtils.entityToMap(page, map);
+		page.setTotalCount(list.size());
+		list = bankInfoMapper.selectBankInfoByMap(map);
+		page.setList(list);
+		return page;
 	}
 
 }

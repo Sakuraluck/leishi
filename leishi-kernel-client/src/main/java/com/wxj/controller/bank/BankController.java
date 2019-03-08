@@ -51,8 +51,8 @@ public class BankController {
 	}
 	@RequestMapping(value = "/query", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResultObject query(BankInfo bankInfo) {
-		PageUtils<BankInfo> page = new PageUtils<BankInfo>();
+	public ResultObject query(BankInfo bankInfo,PageUtils<BankInfo> page) {
+		page = bankService.query(bankInfo,page);
 		return new ResultObject(page);
 	}
 }

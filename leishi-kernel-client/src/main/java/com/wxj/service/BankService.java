@@ -4,6 +4,7 @@
 package com.wxj.service;
 
 import com.wxj.domain.entity.bank.BankInfo;
+import com.wxj.util.PageUtils;
 
 /**  
 * @ClassName: BankService  
@@ -41,5 +42,15 @@ public interface BankService {
 	* @date:2019-03-07 17:17
 	*/
 	boolean modify(BankInfo bankInfo);
+
+	/**  
+	* @Title: query  
+	* @Description: TODO
+	* @param bankInfo
+	* @param page
+	* @return   
+	* @date:2019-03-08 10:04
+	*/
+	PageUtils<BankInfo> query(BankInfo bankInfo, PageUtils<BankInfo> page);
 
 }

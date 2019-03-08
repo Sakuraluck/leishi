@@ -1,6 +1,8 @@
 package com.wxj.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.wxj.domain.entity.bank.BankInfo;
 /**
 * @ClassName:  BankInfoMapper
@@ -36,4 +38,11 @@ public interface BankInfoMapper{
 	* @date:2019-03-07 17:17
 	*/
 	public void updateBankInfo(BankInfo bankInfo);
+	/**  
+	* @Title: selectBankInfoByMap  
+	* @Description: TODO 条件查询
+	* @param map   
+	* @date:2019-03-08 10:10
+	*/
+	public List<BankInfo> selectBankInfoByMap(Map<String, Object> map);
 }
