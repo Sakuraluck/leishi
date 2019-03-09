@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-03-08 17:30:25
+Date: 2019-03-09 11:17:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -103,6 +103,11 @@ DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `em_id` int(11) NOT NULL,
+  `years` int(5) NOT NULL,
+  `moths` int(3) NOT NULL,
+  `days` double(2,2) NOT NULL,
+  `day_salary` int(4) NOT NULL COMMENT '当月日薪',
+  `month_salary` double(11,2) NOT NULL COMMENT '当月月薪',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='薪资表';
 
