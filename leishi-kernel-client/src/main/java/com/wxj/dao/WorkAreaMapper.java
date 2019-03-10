@@ -23,13 +23,13 @@ public interface WorkAreaMapper{
 	 *@param WorkArea 插入数据
 	 *@return
 	 */
-	public void insertWorkArea(WorkArea WorkArea);
+	public int insertWorkArea(WorkArea WorkArea);
 	/**
 	 *删除WorkArea对象
 	 *@param WorkArea 删除条件，通配
 	 *@return
 	 */
-	public void deleteWorkArea(WorkArea WorkArea);
+	public int deleteWorkArea(WorkArea WorkArea);
 	/**  
 	* @Title: selectWorkDict  
 	* @Description: TODO

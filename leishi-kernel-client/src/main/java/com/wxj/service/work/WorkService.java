@@ -5,6 +5,7 @@ package com.wxj.service.work;
 
 import java.util.List;
 
+import com.wxj.domain.entity.work.WorkArea;
 import com.wxj.domain.vo.KeyValueVo;
 
 /**  
@@ -24,5 +25,14 @@ public interface WorkService {
 	* @date:2019-03-10 14:40
 	*/
 	List<KeyValueVo> getWorkDict();
+
+	/**  
+	* @Title: add  
+	* @Description: TODO 工地信息添加
+	* @param workAre
+	* @return   
+	* @date:2019-03-10 15:00
+	*/
+	int add(WorkArea workAre);
 
 }

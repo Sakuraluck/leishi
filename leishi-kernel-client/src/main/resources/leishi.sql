@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-03-09 11:17:00
+Date: 2019-03-10 15:09:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,6 +77,7 @@ CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL COMMENT '姓名',
   `age` int(2) DEFAULT NULL COMMENT '年龄',
+  `work_id` int(11) DEFAULT NULL COMMENT '工地id',
   `phone` varchar(12) DEFAULT NULL COMMENT '电话号码',
   `identity` varchar(20) NOT NULL COMMENT '身份证号',
   `user_name` varchar(100) DEFAULT NULL COMMENT '登录用户名',
@@ -93,8 +94,8 @@ CREATE TABLE `employee` (
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
-INSERT INTO `employee` VALUES ('1', '老马', '55', '11111111111', '422802199305142139', 'LM', '未知', '未知', 'e10adc3949ba59abbe56e057f20f883e', '8', '2019-01-20 18:24:28', '2019-01-20 18:24:28', '1');
-INSERT INTO `employee` VALUES ('2', '钱红军', '0', '18772118542', '422802199305142138', 'QHJ', 'DF', 'FAAG', '8ce4790219249153a2f861e0439ba78d', '1', '2019-02-01 14:43:00', '2019-02-01 14:43:00', '1');
+INSERT INTO `employee` VALUES ('1', '老马', '55', null, '11111111111', '422802199305142139', 'LM', '未知', '未知', 'e10adc3949ba59abbe56e057f20f883e', '8', '2019-01-20 18:24:28', '2019-01-20 18:24:28', '1');
+INSERT INTO `employee` VALUES ('2', '钱红军', '0', null, '18772118542', '422802199305142138', 'QHJ', 'DF', 'FAAG', '8ce4790219249153a2f861e0439ba78d', '1', '2019-02-01 14:43:00', '2019-02-01 14:43:00', '1');
 
 -- ----------------------------
 -- Table structure for `salary`
@@ -103,11 +104,14 @@ DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `em_id` int(11) NOT NULL,
+  `work_id` int(11) NOT NULL COMMENT '工地id',
   `years` int(5) NOT NULL,
   `moths` int(3) NOT NULL,
-  `days` double(2,2) NOT NULL,
+  `timesheets` double(2,2) NOT NULL COMMENT '工时',
   `day_salary` int(4) NOT NULL COMMENT '当月日薪',
-  `month_salary` double(11,2) NOT NULL COMMENT '当月月薪',
+  `month_salary` double(11,2) NOT NULL COMMENT '当月核算月薪',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='薪资表';
 
@@ -165,7 +169,6 @@ CREATE TABLE `schedule_job` (
 -- ----------------------------
 -- Records of schedule_job
 -- ----------------------------
-INSERT INTO `schedule_job` VALUES ('1', null, '2019-03-06 15:30:53', '测试', null, '0', '*/5 * * * * ?', null, 'com.wxj.job.TestJob', '1', null, 'test');
 
 -- ----------------------------
 -- Table structure for `timesheets`
@@ -225,17 +228,23 @@ CREATE TABLE `work_area` (
   `area_name` varchar(200) DEFAULT NULL,
   `area_desc` varchar(500) DEFAULT NULL COMMENT '工地描述',
   `emp_id` int(11) DEFAULT NULL COMMENT '工地负责人',
+  `stakeholder` varchar(10) DEFAULT NULL COMMENT '项目干系人',
+  `st_phone` varchar(15) DEFAULT NULL COMMENT '项目干系人电话',
+  `status` int(1) NOT NULL DEFAULT '1' COMMENT '工地状态：1未完工，0完工',
   `area_address` varchar(100) DEFAULT NULL COMMENT '工地地址',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `create_user` int(11) DEFAULT NULL COMMENT '创建用户',
   `update_user` int(11) DEFAULT NULL COMMENT '更新用户',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工地信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='工地信息表';
 
 -- ----------------------------
 -- Records of work_area
 -- ----------------------------
+INSERT INTO `work_area` VALUES ('1', '孝感保利', null, '1', '吴兴军', '18772118541', '1', '湖北省孝感市', null, '2019-03-10 14:52:59', '1', '1');
+INSERT INTO `work_area` VALUES ('2', '湖南长沙工地', '南湖长沙,2', null, '吴兴军', '18772118541', '1', '湖南省长沙市，长沙县', null, null, null, null);
+INSERT INTO `work_area` VALUES ('3', '湖南长沙工地', '南湖长沙,2', null, '吴兴军', '18772118541', '1', '湖南省长沙市，长沙县', '2019-03-10 15:06:49', '2019-03-10 15:06:49', '1', '1');
 
 -- ----------------------------
 -- Table structure for `work_record`

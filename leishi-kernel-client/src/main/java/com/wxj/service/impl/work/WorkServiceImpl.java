@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wxj.dao.WorkAreaMapper;
+import com.wxj.domain.entity.work.WorkArea;
 import com.wxj.domain.vo.KeyValueVo;
 import com.wxj.service.work.WorkService;
 
@@ -29,6 +30,12 @@ public class WorkServiceImpl implements WorkService{
 	@Override
 	public List<KeyValueVo> getWorkDict() {
 		return workAreaMapper.selectWorkDict();
+	}
+
+	@Override
+	public int add(WorkArea workAre) {
+		
+		return workAreaMapper.insertWorkArea(workAre);
 	}
 
 }

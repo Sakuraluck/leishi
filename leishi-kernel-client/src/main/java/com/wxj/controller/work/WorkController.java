@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wxj.domain.entity.work.WorkArea;
 import com.wxj.domain.vo.KeyValueVo;
 import com.wxj.service.work.WorkService;
 import com.wxj.util.ResultObject;
@@ -38,5 +39,19 @@ public class WorkController {
 	public ResultObject getWorkDict() {
 		List<KeyValueVo> lsit = workService.getWorkDict();
 		return new ResultObject(lsit);
+	}
+	/**  
+	* @Title: add  
+	* @Description: TODO 工地信息添加
+	* @return   
+	* @date:2019-03-10 14:58
+	*/
+	@RequestMapping(value="/add",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject add(WorkArea workAre) {
+		workAre.setUpdateUser("1");
+		workAre.setCreateUser("1");
+		int  i = workService.add(workAre);
+		return new ResultObject(i+"条");
 	}
 }

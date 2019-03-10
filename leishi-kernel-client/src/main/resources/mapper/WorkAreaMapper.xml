@@ -94,12 +94,8 @@
 			<if test="areaAddress != null and areaAddress != ''">
 				area_address,
 			</if>
-			<if test="createTime != null and createTime != ''">
 				create_time,
-			</if>
-			<if test="updateTime != null and updateTime != ''">
 				update_time,
-			</if>
 			<if test="createUser != null and createUser != ''">
 				create_user,
 			</if>
@@ -132,12 +128,8 @@
 			<if test="areaAddress != null and areaAddress != ''">
 				#{areaAddress},
 			</if>
-			<if test="createTime != null and createTime != ''">
-				#{createTime},
-			</if>
-			<if test="updateTime != null and updateTime != ''">
-				#{updateTime},
-			</if>
+				SYSDATE(),
+				SYSDATE(),
 			<if test="createUser != null and createUser != ''">
 				#{createUser},
 			</if>
