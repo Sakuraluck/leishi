@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.WorkAreaMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.work.WorkArea">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="area_desc" property="areaDesc" jdbcType="VARCHAR" />
+		<result column="emp_id" property="empId" jdbcType="VARCHAR" />
+		<result column="stakeholder" property="stakeholder" jdbcType="VARCHAR" />
+		<result column="st_phone" property="stPhone" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="area_address" property="areaAddress" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,area_name,area_desc,emp_id,stakeholder,st_phone,status,area_address,create_time,update_time,create_user,update_user
+	</sql>
+
+	<select id="selectWorkDict" resultType="com.wxj.domain.vo.KeyValueVo">
+		select a.id keywords,a.area_name value from work_area a where a.status = '1'
+		GROUP BY a.id,a.area_name
+	</select>
+	<select id="selectWorkArea" resultMap="BaseResultMap"
+		parameterType="com.wxj.domain.entity.work.WorkArea">
+		select
+		<include refid="BaseColumnList" />
+		from work_area
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				and area_name = #{areaName}
+			</if>
+			<if test="areaDesc != null and areaDesc != ''">
+				and area_desc = #{areaDesc}
+			</if>
+			<if test="empId != null and empId != ''">
+				and emp_id = #{empId}
+			</if>
+			<if test="stakeholder != null and stakeholder != ''">
+				and stakeholder = #{stakeholder}
+			</if>
+			<if test="stPhone != null and stPhone != ''">
+				and st_phone = #{stPhone}
+			</if>
+			<if test="status != null and status != ''">
+				and status = #{status}
+			</if>
+			<if test="areaAddress != null and areaAddress != ''">
+				and area_address = #{areaAddress}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				and create_user = #{createUser}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				and update_user = #{updateUser}
+			</if>
+		</where>
+	</select>
+	<insert id="insertWorkArea" parameterType="com.wxj.domain.entity.work.WorkArea">
+		insert into work_area
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="areaName != null and areaName != ''">
+				area_name,
+			</if>
+			<if test="areaDesc != null and areaDesc != ''">
+				area_desc,
+			</if>
+			<if test="empId != null and empId != ''">
+				emp_id,
+			</if>
+			<if test="stakeholder != null and stakeholder != ''">
+				stakeholder,
+			</if>
+			<if test="stPhone != null and stPhone != ''">
+				st_phone,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="areaAddress != null and areaAddress != ''">
+				area_address,
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				update_user,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="areaName != null and areaName != ''">
+				#{areaName},
+			</if>
+			<if test="areaDesc != null and areaDesc != ''">
+				#{areaDesc},
+			</if>
+			<if test="empId != null and empId != ''">
+				#{empId},
+			</if>
+			<if test="stakeholder != null and stakeholder != ''">
+				#{stakeholder},
+			</if>
+			<if test="stPhone != null and stPhone != ''">
+				#{stPhone},
+			</if>
+			<if test="status != null and status != ''">
+				#{status},
+			</if>
+			<if test="areaAddress != null and areaAddress != ''">
+				#{areaAddress},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				#{createTime},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser},
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				#{updateUser},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteWorkArea" parameterType="com.wxj.domain.entity.work.WorkArea">
+		delete from work_area
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				and area_name = #{areaName}
+			</if>
+			<if test="areaDesc != null and areaDesc != ''">
+				and area_desc = #{areaDesc}
+			</if>
+			<if test="empId != null and empId != ''">
+				and emp_id = #{empId}
+			</if>
+			<if test="stakeholder != null and stakeholder != ''">
+				and stakeholder = #{stakeholder}
+			</if>
+			<if test="stPhone != null and stPhone != ''">
+				and st_phone = #{stPhone}
+			</if>
+			<if test="status != null and status != ''">
+				and status = #{status}
+			</if>
+			<if test="areaAddress != null and areaAddress != ''">
+				and area_address = #{areaAddress}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				and create_user = #{createUser}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				and update_user = #{updateUser}
+			</if>
+		</where>
+	</delete>
+</mapper>

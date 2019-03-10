@@ -34,7 +34,14 @@ public class Employee{
 	private String status;
 	/** 身份证号 */
 	private String identity;
-	
+	/** 工地id */
+	private String workId;
+	public String getWorkId() {
+		return workId;
+	}
+	public void setWorkId(String workId) {
+		this.workId = workId;
+	}
 	public String getIdentity() {
 		return identity;
 	}

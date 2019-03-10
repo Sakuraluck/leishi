@@ -15,9 +15,10 @@
 		<result column="comm_address" property="commAddress" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="identity" property="identity" jdbcType="VARCHAR" />
+		<result column="work_id" property="workId" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="BaseColumnList">
-		status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
+		id,work_id,status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
 	</sql>
 	<!-- 修改员工信息 wxj -->
 	<update id="updateEmployee" parameterType="com.wxj.domain.entity.Employee" >
@@ -25,6 +26,9 @@
 			<trim suffixOverrides=",">
 			<if test="name != null and name != ''">
 				name = #{name},
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id = #{workId},
 			</if>
 			<if test="age != null and age != ''">
 				age = #{age},
@@ -64,7 +68,7 @@
 		SELECT MAX(ID) FROM employee
 	</select>
 	<select id="selectEmployeeByPage" resultType="com.wxj.domain.vo.employee.EmployeeVo" parameterType="java.util.Map">
-	select a.identity,a.status,a.name,a.age,a.phone,a.user_name userName,a.password,b.descript salaryGrade,a.create_time createTime,a.update_time updateTime,a.comm_address commAddress,a.home_address homeAddress,b.text slary from employee a LEFT JOIN dictionary b on a.salary_grade = b.id 
+	select a.work_id workId,a.identity,a.status,a.name,a.age,a.phone,a.user_name userName,a.password,b.descript salaryGrade,a.create_time createTime,a.update_time updateTime,a.comm_address commAddress,a.home_address homeAddress,b.text slary from employee a LEFT JOIN dictionary b on a.salary_grade = b.id 
 		<where>
 			<if test="id != null and id != ''">
 				and a.id = #{id}
@@ -90,6 +94,9 @@
 			<if test="status != null and status != ''">
 				and a.status = #{status}
 			</if>
+			<if test="workId != null and workId != ''">
+				and a.work_id = #{workId}
+			</if>
 			<if test="identity != null and identity != ''">
 				and a.identity = #{identity}
 			</if>
@@ -101,7 +108,7 @@
 			</if>
 		</where>
 		
-		ORDER BY update_time DESC
+		ORDER BY a.update_time DESC
 		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
 			limit ${begin},${pageSize}
 		</if>
@@ -160,6 +167,9 @@
 			<if test="phone != null and phone != ''">
 				and phone = #{phone}
 			</if>
+			<if test="workId != null and workId != ''">
+				and work_id = #{workId}
+			</if>
 			<if test="userName != null and userName != ''">
 				and user_name = #{userName}
 			</if>
@@ -188,6 +198,9 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
 				id,
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id,
 			</if>
 			<if test="name != null and name != ''">
 				name,
@@ -225,6 +238,9 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
 				#{id},
+			</if>
+			<if test="workId != null and workId != ''">
+				#{workId},
 			</if>
 			<if test="name != null and name != ''">
 				#{name},
