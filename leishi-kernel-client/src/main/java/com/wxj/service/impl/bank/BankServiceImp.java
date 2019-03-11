@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.wxj.dao.BankInfoMapper;
 import com.wxj.domain.entity.bank.BankInfo;
-import com.wxj.service.BankService;
+import com.wxj.service.ConstructionService;
 import com.wxj.util.MapUtils;
 import com.wxj.util.PageUtils;
 
@@ -25,7 +25,7 @@ import com.wxj.util.PageUtils;
 * @email:18772118541@163.com
 */
 @Service
-public class BankServiceImp implements BankService {
+public class BankServiceImp implements ConstructionService {
 	@Autowired
 	private BankInfoMapper bankInfoMapper;
 	@Override

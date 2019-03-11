@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wxj.dao.WorkAreaMapper">
-	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.work.WorkArea">
+<mapper namespace="com.wxj.dao.ConstructionMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.work.Construction">
 		<result column="id" property="id" jdbcType="VARCHAR" />
 		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
 		<result column="area_desc" property="areaDesc" jdbcType="VARCHAR" />
@@ -18,16 +18,95 @@
 	<sql id="BaseColumnList">
 		id,area_name,area_desc,emp_id,stakeholder,st_phone,status,area_address,create_time,update_time,create_user,update_user
 	</sql>
-
+	<select id="selectWorkAreaByPage" parameterType="java.util.Map" resultType="com.wxj.domain.entity.work.Construction">
+		SELECT a.id ,a.area_name areaName,a.area_desc areaDesc,b.name empId,a.stakeholder,a.st_phone stPhone,CASE a.status WHEN 1 THEN '未完工' WHEN 0 THEN '完工' END status,a.area_address areaAddress,a.create_time createTime,a.update_time updateTime,a.create_user createUser,a.update_user updateUser
+		FROM construction a LEFT JOIN employee b ON a.emp_id = b.id
+		<where>
+			<if test="id != null and id != ''">
+				a.id = #{id}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				and a.area_name = #{areaName}
+			</if>
+			<if test="areaDesc != null and areaDesc != ''">
+				and a.area_desc = #{areaDesc}
+			</if>
+			<if test="empId != null and empId != ''">
+				and a.emp_id = #{empId}
+			</if>
+			<if test="stakeholder != null and stakeholder != ''">
+				and a.stakeholder = #{stakeholder}
+			</if>
+			<if test="stPhone != null and stPhone != ''">
+				and a.st_phone = #{stPhone}
+			</if>
+			<if test="status != null and status != ''">
+				and a.status = #{status}
+			</if>
+			<if test="areaAddress != null and areaAddress != ''">
+				and a.area_address = #{areaAddress}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and a.update_time = #{updateTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				and a.create_user = #{createUser}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				and a.update_user = #{updateUser}
+			</if>
+		</where>
+		ORDER BY a.update_time DESC 
+		<if test="begin != '' and begin != null and pageSize != '' and pageSize != null">
+			LIMIT ${begin},${pageSize}
+		</if>
+	</select>
+	<update id="updateWorkArea" parameterType="com.wxj.domain.entity.work.Construction">
+		UPDATE construction
+		<set>
+			<trim prefix="SET " suffixOverrides=",">
+				<if test="areaName != null and areaName != ''">
+					area_name = #{areaName},
+				</if>
+				<if test="areaDesc != null and areaDesc != ''">
+					 area_desc = #{areaDesc},
+				</if>
+				<if test="empId != null and empId != ''">
+					 emp_id = #{empId},
+				</if>
+				<if test="stakeholder != null and stakeholder != ''">
+					 stakeholder = #{stakeholder},
+				</if>
+				<if test="stPhone != null and stPhone != ''">
+					 st_phone = #{stPhone},
+				</if>
+				<if test="status != null and status != ''">
+					 status = #{status},
+				</if>
+				<if test="areaAddress != null and areaAddress != ''">
+					 area_address = #{areaAddress},
+				</if>
+				<if test="updateUser != null and updateUser != ''">
+					 update_user = #{updateUser},
+				</if>
+			</trim>
+		</set>
+	</update>
+	<!-- select the site dictionary -->
 	<select id="selectWorkDict" resultType="com.wxj.domain.vo.KeyValueVo">
-		select a.id keywords,a.area_name value from work_area a where a.status = '1'
-		GROUP BY a.id,a.area_name
+		select a.id
+		keywords,a.area_name value from construction a where a.status = '1'
+		GROUP
+		BY a.id,a.area_name
 	</select>
 	<select id="selectWorkArea" resultMap="BaseResultMap"
-		parameterType="com.wxj.domain.entity.work.WorkArea">
+		parameterType="com.wxj.domain.entity.work.Construction">
 		select
 		<include refid="BaseColumnList" />
-		from work_area
+		from construction
 		<where>
 			<if test="id != null and id != ''">
 				and id = #{id}
@@ -67,8 +146,8 @@
 			</if>
 		</where>
 	</select>
-	<insert id="insertWorkArea" parameterType="com.wxj.domain.entity.work.WorkArea">
-		insert into work_area
+	<insert id="insertWorkArea" parameterType="com.wxj.domain.entity.work.Construction">
+		insert into construction
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id != ''">
 				id,
@@ -94,8 +173,8 @@
 			<if test="areaAddress != null and areaAddress != ''">
 				area_address,
 			</if>
-				create_time,
-				update_time,
+			create_time,
+			update_time,
 			<if test="createUser != null and createUser != ''">
 				create_user,
 			</if>
@@ -128,8 +207,8 @@
 			<if test="areaAddress != null and areaAddress != ''">
 				#{areaAddress},
 			</if>
-				SYSDATE(),
-				SYSDATE(),
+			SYSDATE(),
+			SYSDATE(),
 			<if test="createUser != null and createUser != ''">
 				#{createUser},
 			</if>
@@ -138,8 +217,8 @@
 			</if>
 		</trim>
 	</insert>
-	<delete id="deleteWorkArea" parameterType="com.wxj.domain.entity.work.WorkArea">
-		delete from work_area
+	<delete id="deleteWorkArea" parameterType="com.wxj.domain.entity.work.Construction">
+		delete from construction
 		<where>
 			<if test="id != null and id != ''">
 				and id = #{id}

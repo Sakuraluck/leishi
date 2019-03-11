@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wxj.domain.entity.bank.BankInfo;
-import com.wxj.service.BankService;
+import com.wxj.service.ConstructionService;
 import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
 
@@ -24,7 +24,7 @@ import com.wxj.util.ResultObject;
 @RequestMapping("bank")
 public class BankController {
 	@Autowired
-	private BankService bankService;
+	private ConstructionService bankService;
 	/**  
 	* @Title: addBankInfo  
 	* @Description: TODO 添加银行信息

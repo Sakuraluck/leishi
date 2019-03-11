@@ -62,4 +62,11 @@ public interface EmployeeMapper{
 	* @date:2019-01-01 16:02
 	*/
 	public void updateEmployee(Employee employee);
+	/**  
+	* @Title: updateEmpoyeeByAreaId  
+	* @Description: TODO update employee by contrustion info
+	* @return  
+	* @date:2019-03-11 09:40
+	*/
+	public int updateEmpoyeeByAreaId();
 }

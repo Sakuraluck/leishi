@@ -7,7 +7,7 @@ package com.wxj.domain.entity.work;
 * @date:2019-3-10 14:48:05
 * @email: 18772118541@163.com
 */
-public class WorkArea{
+public class Construction{
 	/***/
 	private String id;
 	/***/

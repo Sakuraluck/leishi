@@ -2,6 +2,7 @@ package com.wxj.dao;
 import java.util.List;
 
 import com.wxj.domain.entity.job.ScheduleJob;
+
 public interface ScheduleJobMapper {
 	int deleteByPrimaryKey(Long jobId);
 

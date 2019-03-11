@@ -1,6 +1,5 @@
 package com.wxj.controller.work;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wxj.domain.entity.work.WorkArea;
+import com.wxj.domain.entity.work.Construction;
 import com.wxj.domain.vo.KeyValueVo;
 import com.wxj.service.work.WorkService;
+import com.wxj.util.PageUtils;
 import com.wxj.util.ResultObject;
 
 /**  
@@ -25,7 +25,7 @@ import com.wxj.util.ResultObject;
 */
 @Controller
 @RequestMapping("work")
-public class WorkController {
+public class ConstructionController {
 	@Autowired
 	private WorkService workService;
 	/**  
@@ -48,10 +48,50 @@ public class WorkController {
 	*/
 	@RequestMapping(value="/add",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResultObject add(WorkArea workAre) {
+	public ResultObject add(Construction workAre) {
 		workAre.setUpdateUser("1");
 		workAre.setCreateUser("1");
 		int  i = workService.add(workAre);
 		return new ResultObject(i+"条");
+	}
+	/**  
+	* @Title: remove  
+	* @Description: TODO remove the contrustion site
+	* @param workAre
+	* @return   
+	* @date:2019-03-11 09:33
+	*/
+	@RequestMapping(value="/remove",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject remove(Construction workAre) {
+		int  i = workService.remove(workAre);
+		return new ResultObject(i+"条");
+	}
+	/**  
+	* @Title: modify  
+	* @Description: TODO modify site info
+	* @param workAre
+	* @return   
+	* @date:2019-03-11 09:50
+	*/
+	@RequestMapping(value="/modify",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject modify(Construction workAre) {
+		int  i = workService.modify(workAre);
+		return new ResultObject(i+"条");
+	}
+	
+	/**  
+	* @Title: query  
+	* @Description: TODO query site info
+	* @param workAre
+	* @return   
+	* @date:2019-03-11 10:00
+	*/
+	@RequestMapping(value="/query",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResultObject query(Construction workAre,PageUtils<Construction> page) {
+		page = workService.query(workAre,page);
+		return new ResultObject(page);
 	}
 }

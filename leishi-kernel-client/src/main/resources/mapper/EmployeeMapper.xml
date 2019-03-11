@@ -20,6 +20,9 @@
 	<sql id="BaseColumnList">
 		id,work_id,status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
 	</sql>
+	<update id="updateEmpoyeeByAreaId" parameterType="com.wxj.domain.entity.Employee">
+		UDPATE employee SET work_id = null WHERE work_id = #{workId}
+	</update>
 	<!-- 修改员工信息 wxj -->
 	<update id="updateEmployee" parameterType="com.wxj.domain.entity.Employee" >
 		UPDATE employee SET 
@@ -53,6 +56,12 @@
 			</if>
 			<if test="status != null and status != ''">
 				status = #{status},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id = #{workId},
 			</if>
 		</trim>
 			

@@ -14,7 +14,7 @@ import com.wxj.util.PageUtils;
 * @Tel:18772118541
 * @email:18772118541@163.com
 */
-public interface BankService {
+public interface ConstructionService {
 
 	/**  
 	* @Title: addBankInfo  
