@@ -1,8 +1,12 @@
 package com.wxj.util;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.wxj.domain.entity.Employee;
 
@@ -44,13 +48,35 @@ public class MapUtils {
 		 return map;
 	}
 	
-	public static void main(String[] args) {
-		
-		Employee employee = new Employee();
-		employee.setName("wxj");
-		employee.setAge("35");
-		Map<String, Object> map = entityToMap(employee,new HashMap<String,Object>());
-		System.out.println(map.toString());
+	/**  
+	* @Title: list  Convert the key of the map to a list
+	* @param map
+	* @return   
+	* @date:2019-03-15 11:54
+	*/
+	public static List<Object> convertKeyToList(Map<Object,Object> map){
+		List<Object> list = new ArrayList<Object>();
+		Set<Object> keySet = map.keySet();
+		Iterator<Object> it = keySet.iterator();
+		while(it.hasNext()) {
+			list.add(it.next());
+		}
+		return list;
 	}
-	
+	/**  
+	* @Title: convertValueToList  
+	* @Description: TODO Convert the value of the map to a List;
+	* @param map
+	* @return   
+	* @date:2019-03-15 12:00
+	*/
+	public static List<Object> convertValueToList(Map<Object,Object> map){
+		List<Object> list = new ArrayList<Object>();
+		Set<Object> keySet = map.keySet();
+		Iterator<Object> it = keySet.iterator();
+		while(it.hasNext()) {
+			list.add(map.get(it.next()));
+		}
+		return list;
+	}
 }
